@@ -18,7 +18,7 @@
 # JASP always calls the function whose name matches the `function` field in
 # Description.qml.  The three arguments are fixed: never rename them.
 
-summaryStats <- function(jaspResults, dataset, options) {
+summaryStatsSolution <- function(jaspResults, dataset, options) {
 
   # ── 1. READY CHECK ──────────────────────────────────────────────────────────
   # options[["variable"]] is "" when the user has not yet assigned a variable.

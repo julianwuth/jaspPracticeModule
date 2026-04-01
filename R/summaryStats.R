@@ -21,7 +21,7 @@
 # ============================================================
 
 
-SummaryStats <- function(jaspResults, dataset, options) {
+summaryStats <- function(jaspResults, dataset, options) {
 
   # ── 1. READY CHECK ──────────────────────────────────────────────────────────
   # The analysis should only do work once a variable is assigned.

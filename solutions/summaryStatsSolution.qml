@@ -55,7 +55,7 @@ Form
 			CIField
 			{
 				name:    "ciLevel"
-				label:   qsTr("Interval")
+				label:   qsTr("Width")
 				info:    qsTr("Confidence level (e.g. 95 means 95%% CI).")
 				enabled: showCi.checked   // grey out when parent box is unchecked
 			}
