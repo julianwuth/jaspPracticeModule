@@ -1,5 +1,2 @@
 import(jaspBase)
-export(addOne)
-export(processTable)
-export(parabola)
-export(interfaceExample)
+export(SummaryStats)

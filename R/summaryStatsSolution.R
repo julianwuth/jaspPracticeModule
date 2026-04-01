@@ -18,7 +18,7 @@
 # JASP always calls the function whose name matches the `function` field in
 # Description.qml.  The three arguments are fixed: never rename them.
 
-SummaryStats <- function(jaspResults, dataset, options) {
+summaryStats <- function(jaspResults, dataset, options) {
 
   # ── 1. READY CHECK ──────────────────────────────────────────────────────────
   # options[["variable"]] is "" when the user has not yet assigned a variable.
@@ -57,7 +57,6 @@ SummaryStats <- function(jaspResults, dataset, options) {
 
 .createSummaryTable <- function(jaspResults, dataset, options, ready) {
 
-  # Idempotency guard — JASP calls R on every option change; this prevents
   # rebuilding an output that is already up-to-date.
   if (!is.null(jaspResults[["summaryTable"]]))
     return()
@@ -87,7 +86,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
   # Bonus: CI columns — only add them when the checkbox is ticked.
   # overtitle groups "Lower" and "Upper" under a shared header.
   if (options[["confidenceInterval"]]) {
-    ciPct <- gettextf("%s%%", round(100 * options[["ciLevel"]]))  # e.g. "95%"
+    ciPct <- gettextf("%i%% Confidence Interval", round(100 * options[["ciLevel"]]))  # e.g. "95%"
     summaryTable$addColumnInfo(name = "ciLow",  type = "number",
                                title = gettext("Lower"), overtitle = ciPct)
     summaryTable$addColumnInfo(name = "ciHigh", type = "number",
@@ -114,11 +113,11 @@ SummaryStats <- function(jaspResults, dataset, options) {
                   stats::median(x), min(x), max(x))
   )
 
-  # Bonus: fill CI columns for the Mean row only; leave other rows as NA
+  # Bonus: fill CI columns for the Mean row only; leave other rows as "" (empty string) so they show as blank in the table.
   if (options[["confidenceInterval"]]) {
     ci         <- stats::t.test(x, conf.level = options[["ciLevel"]])$conf.int
-    rows$ciLow  <- NA_real_
-    rows$ciHigh <- NA_real_
+    rows$ciLow  <- ""
+    rows$ciHigh <- ""
     meanRow          <- rows$statistic == gettext("Mean")
     rows$ciLow[meanRow]  <- ci[1]
     rows$ciHigh[meanRow] <- ci[2]
@@ -127,7 +126,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
 
   # ── TABLE: FOOTNOTE ───────────────────────────────────────────────────────────
   # Footnotes appear beneath the table.  Use them for methodological notes.
-  summaryTable$addFootnote(gettext("SD computed with N\u22121 denominator (Bessel\u2019s correction)."))
+  summaryTable$addFootnote(gettext("SD computed with N - 1 denominator"))
 
   summaryTable$setData(rows)
 }
@@ -137,7 +136,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
 
 .createHistogram <- function(jaspResults, dataset, options, ready) {
 
-  # Idempotency guard
+  # Dependency check
   if (!is.null(jaspResults[["histogram"]]))
     return()
 
@@ -171,7 +170,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
     numberOfBins = bins
   ))
 
-  if (inherits(plotObj, "try-error")) {
+  if (isTryError(plotObj)) {
     histogram$setError(as.character(plotObj))
     return()
   }

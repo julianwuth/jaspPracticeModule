@@ -75,7 +75,6 @@ SummaryStats <- function(jaspResults, dataset, options) {
 
 .createSummaryTable <- function(jaspResults, dataset, options, ready) {
 
-  # Idempotency guard — skip if the table already exists in this R session.
   # JASP calls R repeatedly; this guard prevents redundant work.
   if (!is.null(jaspResults[["summaryTable"]]))
     return()
@@ -124,7 +123,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
   # TIP:
   #   table$addColumnInfo(name = "ciLow", type = "number",
   #                       title = gettext("Lower"),
-  #                       overtitle = gettextf("%s%% CI", 100 * options[["ciLevel"]]))
+  #                       overtitle = gettextf("%i%% Confidence Interval", 100 * options[["ciLevel"]]))
   #
   # TODO (bonus): Conditionally add "ciLow" and "ciHigh" columns when
   #               options[["confidenceInterval"]] is TRUE.
@@ -163,7 +162,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
   #      NA fills naturally when the column exists but no value is set.
   #
   # TODO (bonus): When options[["confidenceInterval"]] is TRUE,
-  #               add columns ciLow and ciHigh to `rows` (NA except Mean row).
+  #               add columns ciLow and ciHigh to `rows` (empty string "" except Mean row).
   # FILL IN
 
 
@@ -172,7 +171,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
   #
   # TIP: summaryTable$addFootnote(gettext("Note text here."))
   #
-  # TODO: Add a footnote noting that SD uses N-1 (Bessel's correction).
+  # TODO: Add a footnote noting that SD uses N-1 in the denominator.
   # FILL IN
 
   summaryTable$setData(rows)
@@ -229,7 +228,7 @@ SummaryStats <- function(jaspResults, dataset, options) {
   #   plotObj <- try(jaspGraphs::jaspHistogram(x, xName = options[["variable"]],
   #                                            binWidthType = "manual",
   #                                            numberOfBins = bins))
-  #   if (inherits(plotObj, "try-error")) { histogram$setError(...); return() }
+  #   if (isTryError(plotObj)) { histogram$setError(...); return() }
   #   histogram$plotObject <- plotObj
   # FILL IN
 
