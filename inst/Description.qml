@@ -19,8 +19,8 @@ Description
 	Analysis
 	{
 		title: qsTr("Summary statistics") // Title for window
-		func: "summaryStats"           // Function to be called
-		qml: "summaryStats.qml"               // Design input window
+		func: "summaryStatsSolution"           // Function to be called
+		qml: "summaryStatsSolution.qml"               // Design input window
 		requiresData: true                // Allow to run even without data
 	}
 
