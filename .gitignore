@@ -59,3 +59,5 @@ Thumbs.db
 .Rproj.user
 
 _processedLockFile.lock
+
+.mcp.json
