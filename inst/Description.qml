@@ -11,17 +11,17 @@ Description
 	maintainer	: "JASP Team <info@jasp-stats.org>"
 	website		: "https://jasp-stats.org"
 	license		: "GPL (>= 2)"
-	icon        : "exampleIcon.png" // Located in /inst/icons/
+	icon        : "exampleIcon.png"
 	preloadData: true
 	requiresData: true
 
 
 	Analysis
 	{
-		title: qsTr("Summary statistics") // Title for window
-		func: "summaryStatsSolution"           // Function to be called
-		qml: "summaryStatsSolution.qml"               // Design input window
-		requiresData: true                // Allow to run even without data
+		title: qsTr("Summary statistics")
+		func: "summaryStatsSolution"
+		qml: "summaryStatsSolution.qml"
+		requiresData: true
 	}
 
 }
