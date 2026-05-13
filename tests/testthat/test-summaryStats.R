@@ -229,3 +229,10 @@ test_that("Analysis flags infinity in the chosen variable", {
 #            -0.38335354, "", "", "Min", -3.023963827, "", "", "Max", 3.356094448
 #         ))
 #   })
+
+
+# ============================================================
+# APPENDIX C — Auto-generating tests from .jasp files
+# ============================================================
+
+# jaspTools::makeTestsFromExamples()
